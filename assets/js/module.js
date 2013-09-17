@@ -54,6 +54,23 @@ $(document).ready(function() {
 		do_print_checklist();
 		e.preventDefault();
 	});
+
+	$('a.addMedication').click(function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			'type': 'GET',
+			'url': baseUrl+'/OphNuPreoperativechecklist/default/addMedication',
+			'success': function(html) {
+				$('table.medications').children('tbody').append(html);
+			}
+		});
+	});
+
+	$('a.removeMedication').die('click').live('click',function(e) {
+		e.preventDefault();
+		$(this).parent().parent().remove();
+	});
 });
 
 // Checks that everything is ready and sets image accordingly

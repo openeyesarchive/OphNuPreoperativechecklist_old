@@ -38,7 +38,7 @@
  * @property User $usermodified
  */
 
-class OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRecord
+class OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -54,7 +54,7 @@ class OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ophnupreoperative_checks_pre_op_drops';
+		return 'ophnupreoperative_checks_pre_op_drops_assignment';
 	}
 
 	/**
@@ -65,11 +65,11 @@ class OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'safe'),
-			array('name', 'required'),
+			array('element_id, drop_id, side_id, dose, time, given_by_id, display_order', 'safe'),
+			array('drop_id, side_id, dose, time, given_by_id, display_order', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on' => 'search'),
+			array('id, element_id, drop_id, side_id, dose, time, given_by_id, display_order', 'safe', 'on' => 'search'),
 		);
 	}
 	
@@ -100,7 +100,11 @@ class OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'drop_id' => 'Medication',
+			'side_id' => 'Site',
+			'dose' => 'Dose',
+			'Time' => 'Time',
+			'given_by_id' => 'Given by',
 		);
 	}
 

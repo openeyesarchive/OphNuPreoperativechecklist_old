@@ -93,6 +93,27 @@
 		<td><?php echo $element->preop_drops_comments?></td>
 	</tr>
 	<tr>
+		<td colspan="4">
+			<table class="medications">
+				<thead>
+					<tr>
+						<th>Medication</th>
+						<th>Site</th>
+						<th>Amount</th>
+						<th>Time</th>
+						<th>Given by</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach (OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($element->id)) as $assignment) {
+						echo $this->renderPartial('_medication_view',array('assignment'=>$assignment));
+					}?>
+				</tbody>
+			</table>
+			<a class="addMedication" href="#">Add item</a>
+		</td>
+	</tr>
+	<tr>
 		<td><?php echo $element->getAttributeLabel('weight_kg_physician')?></td>
 		<td><?php echo $element->weight_kg_physician ? '✔' : '✘'?></td>
 		<td><?php echo $element->weight_kg_nurse ? '✔' : '✘'?></td>

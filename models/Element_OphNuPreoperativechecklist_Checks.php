@@ -185,5 +185,45 @@ class Element_OphNuPreoperativechecklist_Checks extends BaseEventTypeElement
 			$this->urine_passed_physician &&
 			$this->urine_passed_nurse;
 	}
+
+	protected function afterValidate()
+	{
+		if (!empty($_POST['Medication'])) {
+			foreach ($_POST['Medication'] as $i => $medication_id) {
+				$a = new OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment;
+				$a->element_id = $this->id;
+				$a->drop_id = $medication_id;
+				$a->side_id = @$_POST['Site'][$i];
+				$a->dose = @$_POST['Amount'][$i];
+				$a->time = @$_POST['Time'][$i];
+				$a->given_by_id = @$_POST['Givenby'][$i];
+
+				if (!$a->validate()) {
+					foreach ($a->getErrors() as $error) {
+						$this->addError('drop_assignment',$error[0]);
+					}
+				}
+			}
+		}
+	}
+
+	protected function afterSave()
+	{
+		if (!empty($_POST['Medication'])) {
+			foreach ($_POST['Medication'] as $i => $medication_id) {
+				$a = new OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment;
+				$a->element_id = $this->id;
+				$a->drop_id = $medication_id;
+				$a->side_id = @$_POST['Site'][$i];
+				$a->dose = @$_POST['Amount'][$i];
+				$a->time = @$_POST['Time'][$i];
+				$a->given_by_id = @$_POST['Givenby'][$i];
+
+				if (!$a->save()) {
+					throw new Exception("Unable to save drop assignment: ".print_r($a->getErrors(),true));
+				}
+			}
+		}
+	}
 }
 ?>

@@ -1,3 +1,7 @@
 #Element_OphNuPreoperativechecklist_Checks_site_id { margin-bottom: 5px; }
 input.textInput { width: 18.4em; }
 #Element_OphNuPreoperativechecklist_Checks_time_last_ate_time { margin-top: -3px; margin-left: 3px; }
+table.medications { border: 1px solid #666; width: 59.6em; margin-bottom: 10px; }
+table.medications th { color: #000; font-size: 14px; font-weight: bold; border: 1px solid #666; }
+table.medications th { color: #000; font-size: 14px; font-weight: normal; border: 1px solid #666; }
+table.medications td { padding: 5px; border: 1px solid #666; }

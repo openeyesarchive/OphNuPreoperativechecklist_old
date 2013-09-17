@@ -99,6 +99,28 @@
 			<td><?php echo $form->textField($element,'preop_drops_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
 		</tr>
 		<tr>
+			<td colspan="4">
+				<table class="medications">
+					<thead>
+						<tr>
+							<th>Medication</th>
+							<th>Site</th>
+							<th>Amount</th>
+							<th>Time</th>
+							<th>Given by</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($this->getMedications($element) as $assignment) {?>
+							<?php echo $this->renderPartial('_medication_edit',array('assignment'=>$assignment))?>
+						<?php }?>
+					</tbody>
+				</table>
+				<a class="addMedication" href="#">Add item</a>
+			</td>
+		</tr>
+		<tr>
 			<td><?php echo $element->getAttributeLabel('weight_kg_physician')?></td>
 			<td><?php echo $form->checkBox($element,'weight_kg_physician',array('nowrapper'=>true))?></td>
 			<td><?php echo $form->checkBox($element,'weight_kg_nurse',array('nowrapper'=>true))?></td>
