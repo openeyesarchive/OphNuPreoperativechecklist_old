@@ -17,7 +17,7 @@
  */
 
 /**
- * This is the model class for table "et_ophnupreoperative_checks_pre_op_drops".
+ * This is the model class for table "ophnupreoperative_checks_pre_op_drops".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class Element_OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRecord
+class OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +48,7 @@ class Element_OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRec
 	 */
 	public function tableName()
 	{
-		return 'et_ophnupreoperative_checks_pre_op_drops';
+		return 'ophnupreoperative_checks_pre_op_drops';
 	}
 
 	/**
@@ -111,28 +111,6 @@ class Element_OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRec
 		return new CActiveDataProvider(get_class($this), array(
 				'criteria' => $criteria,
 			));
-	}
-
-	/**
-	 * Set default values for forms on create
-	 */
-	public function setDefaultOptions()
-	{
-	}
-
-	protected function beforeSave()
-	{
-		return parent::beforeSave();
-	}
-
-	protected function afterSave()
-	{
-		return parent::afterSave();
-	}
-
-	protected function beforeValidate()
-	{
-		return parent::beforeValidate();
 	}
 }
 ?>

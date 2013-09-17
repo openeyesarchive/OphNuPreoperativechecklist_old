@@ -25,19 +25,143 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>">
 	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->checkBox($element, 'consent_signed')?>
-	<?php echo $form->checkBox($element, 'name_band_present')?>
-	<?php echo $form->checkBox($element, 'eye_marked')?>
-	<?php echo $form->checkBox($element, 'verbal_confirmation')?>
-	<?php echo $form->textField($element, 'last_time_npo', array('size' => '10','maxlength' => '100'))?>
-	<?php echo $form->textField($element, 'iol', array('size' => '10','maxlength' => '20'))?>
-	<?php echo $form->textField($element, 'refractive_outcome', array('size' => '10','maxlength' => '6'))?>
-	<?php echo $form->dropDownListNoPost('pre_op_drops', CHtml::listData(Element_OphNuPreoperativechecklist_Checks_PreOpDrops::model()->findAll(),'id','name'),'',array('empty'=>'- Pre op drops -','class'=>'populate_textarea'))?>
-	<?php echo $form->textArea($element, 'pre_op_drops', array('rows' => 2, 'cols' => 80))?>
-<!-- 	<?php echo $form->radioBoolean($element, 'proceed')?> -->
-	<?php echo $form->hiddenInput($element, 'proceed', $element->proceed)?>
+	<table class="subtleWhite">
+		<tr>
+			<th style="width: 38.4em;">CHECKLIST</th>
+			<th>Physician</th>
+			<th>Nurse</th>
+			<th>Comments</th>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('admit_to_hospital_physician')?></td>
+			<td><?php echo $form->checkBox($element,'admit_to_hospital_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'admit_to_hospital_nurse',array('nowrapper'=>true))?></td>
+			<td>
+				Location: <?php echo $form->dropDownList($element,'site_id',Site::model()->getListForCurrentInstitution(),array('nowrapper'=>true,'empty'=>'- Please select -'))?><br/>
+				<?php echo $form->checkBox($element,'minor_treatment',array('text-align'=>'right','nowrapper'=>true))?>
+			</td>
+		</tr>
+		<tr><td>2. NAME BAND LEFT WRIST</td></tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('name_band_present_physician')?></td>
+			<td><?php echo $form->checkBox($element,'name_band_present_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'name_band_present_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'name_band_present_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('verbal_confirmation_physician')?></td>
+			<td><?php echo $form->checkBox($element,'verbal_confirmation_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'verbal_confirmation_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'verbal_confirmation_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('name_of_attendant_physician')?></td>
+			<td><?php echo $form->checkBox($element,'name_of_attendant_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'name_of_attendant_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->dropDownList($element,'attendant_id',CHtml::listData(User::model()->findAll(array('order'=>'first_name,last_name')),'id','fullName'),array('nowrapper'=>true,'empty'=>'- Please select -'))?></td>
+		</tr>
+		<tr><td>3. CONSENT</td></tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('consent_signed_physician')?></td>
+			<td><?php echo $form->checkBox($element,'consent_signed_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'consent_signed_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'consent_signed_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('type_of_surgery_physician')?></td>
+			<td><?php echo $form->checkBox($element,'type_of_surgery_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'type_of_surgery_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'type_of_surgery_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr><td>4. OPERATIVE EYE(S) MARKED</td></tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('no_signs_of_infection_physician')?></td>
+			<td><?php echo $form->checkBox($element,'no_signs_of_infection_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'no_signs_of_infection_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'no_signs_of_infection_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('marked_with_x_physician')?></td>
+			<td><?php echo $form->checkBox($element,'marked_with_x_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'marked_with_x_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'marked_with_x_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('allergies_physician')?></td>
+			<td><?php echo $form->checkBox($element,'allergies_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'allergies_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'allergies_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('preop_drops_physician')?></td>
+			<td><?php echo $form->checkBox($element,'preop_drops_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'preop_drops_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'preop_drops_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('weight_kg_physician')?></td>
+			<td><?php echo $form->checkBox($element,'weight_kg_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'weight_kg_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'weight_kg_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr><td>8. LAB WORK & EKG</td></tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('lab_hgb_physician')?></td>
+			<td><?php echo $form->checkBox($element,'lab_hgb_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'lab_hgb_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'lab_hgb_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('diagnostics_ordered_physician')?></td>
+			<td><?php echo $form->checkBox($element,'diagnostics_ordered_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'diagnostics_ordered_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'diagnostics_ordered_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('reviewed_physician')?></td>
+			<td><?php echo $form->checkBox($element,'reviewed_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'reviewed_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'reviewed_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('iol_measurements_physician')?></td>
+			<td><?php echo $form->checkBox($element,'iol_measurements_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'iol_measurements_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'iol_measurements_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr><td>10. NPO</td></tr>
+		<tr>
+			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('time_last_ate_time')?>: <?php echo $form->textField($element,'time_last_ate_time',array('size'=>6,'nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'time_last_ate_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'time_last_ate_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'time_last_ate_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('dentures_etc_physician')?></td>
+			<td><?php echo $form->checkBox($element,'dentures_etc_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'dentures_etc_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'dentures_etc_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('systemic_diseases_physician')?></td>
+			<td><?php echo $form->checkBox($element,'systemic_diseases_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'systemic_diseases_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'systemic_diseases_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('medications_physician')?></td>
+			<td><?php echo $form->checkBox($element,'medications_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'medications_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'medications_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+		<tr>
+			<td><?php echo $element->getAttributeLabel('urine_passed_physician')?></td>
+			<td><?php echo $form->checkBox($element,'urine_passed_physician',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->checkBox($element,'urine_passed_nurse',array('nowrapper'=>true))?></td>
+			<td><?php echo $form->textField($element,'urine_passed_comments',array('nowrapper'=>true,'class'=>'textInput'))?></td>
+		</tr>
+	</table>
 
-	<img id="notreadySign" class="nice" src="<?php echo $this->assetPath?>/img/notready.gif" style="width:600px;display:block;margin-top:20px;margin-left:200px;">
-	<img id="readySign" class="nice" src="<?php echo $this->assetPath?>/img/ready.gif" style="width:600px;display:none;margin-top:20px;margin-left:200px;">
-	
+	<img id="notreadySign" class="nice" src="<?php echo $this->assetPath?>/img/notready.gif" style="width:600px;display:<?php echo $element->isReady() ? 'none' : 'block'?>;margin-top:20px;margin-left:200px;" />
+	<img id="readySign" class="nice" src="<?php echo $this->assetPath?>/img/ready.gif" style="width:600px;display:<?php echo $element->isReady() ? 'block' : 'none'?>;margin-top:20px;margin-left:200px;" />
 </div>

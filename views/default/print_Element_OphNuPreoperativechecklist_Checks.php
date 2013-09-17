@@ -22,7 +22,7 @@
 
 <table class="subtleWhite">
 	<tr>
-		<th style="width: 38.4em;">CHECKLIST</th>
+		<th style="width: 22.4em;">CHECKLIST</th>
 		<th>Physician</th>
 		<th>Nurse</th>
 		<th>Comments</th>		 </tr>
@@ -157,7 +157,7 @@
 </table>
 
 <?php if ($element->isReady()) {?>
-	<img id="readySign" class="nice" src="<?php echo $this->assetPath?>/img/ready.gif" style="width:600px;display:block;margin-top:20px;margin-left:200px;">
+	<img id="readySign" class="nice" src="<?php echo $this->assetPath?>/img/ready.gif" style="width:600px;display:block;margin-top:20px;margin-left:30px;">
 <?php }else{?>
 	<img id="notreadySign" class="nice" src="<?php echo $this->assetPath?>/img/notready.gif" style="width:600px;display:block;margin-top:20px;margin-left:200px;">
 <?php }?>

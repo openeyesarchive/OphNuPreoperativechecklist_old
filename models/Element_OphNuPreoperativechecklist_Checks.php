@@ -70,14 +70,12 @@ class Element_OphNuPreoperativechecklist_Checks extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, consent_signed, name_band_present, eye_marked, verbal_confirmation, last_time_npo, iol, refractive_outcome, pre_op_drops, proceed, ', 'safe'),
+			array('event_id, consent_signed_physician, name_band_present_physician, eye_marked, verbal_confirmation_physician, last_time_npo, iol_measurements_comments, refractive_outcome, pre_op_drops, admit_to_hospital_physician, admit_to_hospital_nurse, site_id, minor_treatment, name_band_present_nurse, name_band_present_comments, verbal_confirmation_nurse, verbal_confirmation_comments, attendant_id, name_of_attendant_physician, name_of_attendant_nurse, consent_signed_nurse, consent_signed_comments, type_of_surgery_physician, type_of_surgery_nurse, type_of_surgery_comments, no_signs_of_infection_physician, no_signs_of_infection_nurse, no_signs_of_infection_comments, marked_with_x_physician, marked_with_x_nurse, marked_with_x_comments, allergies_physician, allergies_nurse, allergies_comments, preop_drops_physician, preop_drops_nurse, preop_drops_comments, weight_kg_physician, weight_kg_nurse, weight_kg_comments, lab_hgb_physician, lab_hgb_nurse, lab_hgb_comments, diagnostics_ordered_physician, diagnostics_ordered_nurse, diagnostics_ordered_comments, reviewed_physician, reviewed_nurse, reviewed_comments, iol_measurements_physician, iol_measurements_nurse, time_last_ate_time, time_last_ate_physician, time_last_ate_nurse, time_last_ate_comments, dentures_etc_physician, dentures_etc_nurse, dentures_etc_comments, systemic_diseases_physician, systemic_diseases_nurse, systemic_diseases_comments, medications_physician, medications_nurse, medications_comments, urine_passed_physician, urine_passed_nurse, urine_passed_comments', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, event_id, consent_signed, name_band_present, eye_marked, verbal_confirmation, last_time_npo, iol, refractive_outcome, pre_op_drops, proceed, ', 'safe', 'on' => 'search'),
-			array('refractive_outcome', 'numerical', 'numberPattern' => '/^\s*[\+\-]?\d+\.?\d*\s*$/', 'min' => -10, 'max' => 10),
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -91,6 +89,8 @@ class Element_OphNuPreoperativechecklist_Checks extends BaseEventTypeElement
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
+			'attendant' => array(self::BELONGS_TO, 'User', 'attendant_id'),
 		);
 	}
 
@@ -102,15 +102,27 @@ class Element_OphNuPreoperativechecklist_Checks extends BaseEventTypeElement
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'consent_signed' => 'Consent signed',
-			'name_band_present' => 'Name band present',
-			'eye_marked' => 'Eye marked',
-			'verbal_confirmation' => 'Verbal confirmation',
-			'last_time_npo' => 'Last time NPO',
-			'iol' => 'IOL',
-			'refractive_outcome' => 'Refractive outcome',
-			'pre_op_drops' => 'Pre op drops',
-			'proceed' => 'Proceed',
+			'admit_to_hospital_physician' => '1. Admit to FEH or Local Hospital',
+			'minor_treatment' => 'Minor treatment: physician complete #1-6',
+			'name_band_present_physician' => 'a. Present',
+			'verbal_confirmation_physician' => 'b. Verbal confirmation',
+			'name_of_attendant_physician' => 'c. Name of attendant',
+			'consent_signed_physician' => 'a. Signed & witnessed',
+			'type_of_surgery_physician' => 'b. Type of surgery',
+			'no_signs_of_infection_physician' => 'a. No signs of eye infection/discharge',
+			'marked_with_x_physician' => 'b. By "X" and by surgeon',
+			'allergies_physician' => '5. ALLERGIES',
+			'preop_drops_physician' => '6. PRE-OP DROPS ORDERED AND ADMINISTERED',
+			'weight_kg_physician' => '7. WEIGHT in kg',
+			'lab_hgb_physician' => 'a. HGB, UA, Other',
+			'diagnostics_ordered_physician' => 'b. Additional diagnostics ordered',
+			'reviewed_physician' => 'c. Reviewed',
+			'iol_measurements_physician' => '9. IOL MEASUREMENTS',
+			'time_last_ate_time' => 'a. Time last ate/drank',
+			'dentures_etc_physician' => '11. DENTURES, HEARING AID, JEWELRY, PROSTHESIS, CONTACT LENSES',
+			'systemic_diseases_physician' => '12. SYSTEMIC DISEASES LISTED',
+			'medications_physician' => '13. LIST OF MEDICATIONS TAKEN TODAY',
+			'urine_passed_physician' => '14. URINE PASSED',
 		);
 	}
 
@@ -120,44 +132,58 @@ class Element_OphNuPreoperativechecklist_Checks extends BaseEventTypeElement
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('consent_signed', $this->consent_signed);
-		$criteria->compare('name_band_present', $this->name_band_present);
-		$criteria->compare('eye_marked', $this->eye_marked);
-		$criteria->compare('verbal_confirmation', $this->verbal_confirmation);
-		$criteria->compare('last_time_npo', $this->last_time_npo);
-		$criteria->compare('iol', $this->iol);
-		$criteria->compare('refractive_outcome', $this->refractive_outcome);
-		$criteria->compare('pre_op_drops', $this->pre_op_drops);
-		$criteria->compare('proceed', $this->proceed);
-		
+
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
 	}
 
-
-
-	protected function beforeSave()
+	public function isReady()
 	{
-		return parent::beforeSave();
-	}
-
-	protected function afterSave()
-	{
-
-		return parent::afterSave();
-	}
-
-	protected function beforeValidate()
-	{
-		return parent::beforeValidate();
+		return $this->admit_to_hospital_physician &&
+			$this->admit_to_hospital_nurse &&
+			$this->name_band_present_physician &&
+			$this->name_band_present_nurse &&
+			$this->verbal_confirmation_physician &&
+			$this->verbal_confirmation_nurse &&
+			$this->name_of_attendant_physician &&
+			$this->name_of_attendant_nurse &&
+			$this->consent_signed_physician &&
+			$this->consent_signed_nurse &&
+			$this->type_of_surgery_physician &&
+			$this->type_of_surgery_nurse &&
+			$this->no_signs_of_infection_physician &&
+			$this->no_signs_of_infection_nurse &&
+			$this->marked_with_x_physician &&
+			$this->marked_with_x_nurse &&
+			$this->allergies_physician &&
+			$this->allergies_nurse &&
+			$this->preop_drops_physician &&
+			$this->preop_drops_nurse &&
+			$this->weight_kg_physician &&
+			$this->weight_kg_nurse &&
+			$this->lab_hgb_physician &&
+			$this->lab_hgb_nurse &&
+			$this->diagnostics_ordered_physician &&
+			$this->diagnostics_ordered_nurse &&
+			$this->reviewed_physician &&
+			$this->reviewed_nurse &&
+			$this->iol_measurements_physician &&
+			$this->iol_measurements_nurse &&
+			$this->time_last_ate_physician &&
+			$this->time_last_ate_nurse &&
+			$this->dentures_etc_physician &&
+			$this->dentures_etc_nurse &&
+			$this->systemic_diseases_physician &&
+			$this->systemic_diseases_nurse &&
+			$this->medications_physician &&
+			$this->medications_nurse &&
+			$this->urine_passed_physician &&
+			$this->urine_passed_nurse;
 	}
 }
 ?>
