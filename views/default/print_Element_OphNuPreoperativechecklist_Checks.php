@@ -18,6 +18,16 @@
  */
 ?>
 
+<style type="text/css">
+	#Element_OphNuPreoperativechecklist_Checks_site_id { margin-bottom: 5px; }
+	input.textInput { width: 18.4em; }
+	#Element_OphNuPreoperativechecklist_Checks_time_last_ate_time { margin-top: -3px; margin-left: 3px; }
+	table.medications { border: 1px solid #666; width: 59.6em; margin-bottom: 10px; }
+	table.medications th { color: #000; font-size: 14px; font-weight: bold; border: 1px solid #666; }
+	table.medications th { color: #000; font-size: 14px; font-weight: normal; border: 1px solid #666; }
+	table.medications td { padding: 5px; border: 1px solid #666; }
+</style>
+
 <h4 class="elementTypeName"><?php echo $element->elementType->name?></h4>
 
 <table class="subtleWhite">
@@ -91,6 +101,26 @@
 		<td><?php echo $element->preop_drops_physician ? '✔' : '✘'?></td>
 		<td><?php echo $element->preop_drops_nurse ? '✔' : '✘'?></td>
 		<td><?php echo $element->preop_drops_comments?></td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<table class="medications">
+				<thead>
+					<tr>
+						<th>Medication</th>
+						<th>Site</th>
+						<th>Amount</th>
+						<th>Time</th>
+						<th>Given by</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach (OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($element->id)) as $assignment) {
+						echo $this->renderPartial('_medication_view',array('assignment'=>$assignment));
+					}?>
+				</tbody>
+			</table>
+		</td>
 	</tr>
 	<tr>
 		<td><?php echo $element->getAttributeLabel('weight_kg_physician')?></td>

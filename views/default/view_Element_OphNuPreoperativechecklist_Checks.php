@@ -110,7 +110,6 @@
 					}?>
 				</tbody>
 			</table>
-			<a class="addMedication" href="#">Add item</a>
 		</td>
 	</tr>
 	<tr>
