@@ -45,7 +45,10 @@ class DefaultController extends BaseEventTypeController {
 				$medications[] = $a;
 			}
 		} else {
-			return OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($element->id));
+			foreach (OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($element->id)) as $assignment) {
+				$assignment->time = substr($assignment->time,0,5);
+				$medications[] = $assignment;
+			}
 		}
 
 		return $medications;
