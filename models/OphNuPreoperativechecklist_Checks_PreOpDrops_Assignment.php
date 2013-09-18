@@ -126,5 +126,10 @@ class OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment extends BaseActive
 			'criteria' => $criteria,
 		));
 	}
+
+	protected function afterFind()
+	{
+		$this->time = substr($this->time,0,5);
+	}
 }
 ?>

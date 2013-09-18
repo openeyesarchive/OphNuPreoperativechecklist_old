@@ -209,9 +209,16 @@ class Element_OphNuPreoperativechecklist_Checks extends BaseEventTypeElement
 
 	protected function afterSave()
 	{
+		$assignment_ids = array();
+
 		if (!empty($_POST['Medication'])) {
 			foreach ($_POST['Medication'] as $i => $medication_id) {
-				$a = new OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment;
+				if ($_POST['AssignmentID'][$i]) {
+					$a = OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findByPk($_POST['AssignmentID'][$i]);
+				} else {
+					$a = new OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment;
+				}
+
 				$a->element_id = $this->id;
 				$a->drop_id = $medication_id;
 				$a->side_id = @$_POST['Site'][$i];
@@ -222,8 +229,23 @@ class Element_OphNuPreoperativechecklist_Checks extends BaseEventTypeElement
 				if (!$a->save()) {
 					throw new Exception("Unable to save drop assignment: ".print_r($a->getErrors(),true));
 				}
+
+				$assignment_ids[] = $a->id;
 			}
 		}
+
+		foreach (OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($this->id)) as $assignment) {
+			if (!in_array($assignment->id,$assignment_ids)) {
+				if (!$assignment->delete()) {
+					throw new Exception("Unable to delete drops assignment: ".print_r($assignment->getErrors(),true));
+				}
+			}
+		}
+	}
+
+	protected function afterFind()
+	{
+		$this->time_last_ate_time = substr($this->time_last_ate_time,0,5);
 	}
 }
 ?>

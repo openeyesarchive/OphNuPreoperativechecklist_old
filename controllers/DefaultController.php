@@ -30,9 +30,9 @@ class DefaultController extends BaseEventTypeController {
 
 	public function getMedications($element)
 	{
-		if (!empty($_POST) && !empty($_POST['Medication'])) {
-			$medications = array();
+		$medications = array();
 
+		if (!empty($_POST) && !empty($_POST['Medication'])) {
 			foreach ($_POST['Medication'] as $i => $medication_id) {
 				$a = new OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment;
 				$a->element_id = $this->id;
@@ -44,10 +44,10 @@ class DefaultController extends BaseEventTypeController {
 
 				$medications[] = $a;
 			}
-
-			return $medications;
+		} else {
+			return OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($element->id));
 		}
 
-		return OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($this->id));
+		return $medications;
 	}
 }
