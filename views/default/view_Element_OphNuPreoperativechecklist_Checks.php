@@ -92,26 +92,28 @@
 		<td><?php echo $element->preop_drops_nurse ? '✔' : '✘'?></td>
 		<td><?php echo $element->preop_drops_comments?></td>
 	</tr>
-	<tr>
-		<td colspan="4">
-			<table class="medications">
-				<thead>
-					<tr>
-						<th>Medication</th>
-						<th>Site</th>
-						<th>Amount</th>
-						<th>Time</th>
-						<th>Given by</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach (OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($element->id)) as $assignment) {
-						echo $this->renderPartial('_medication_view',array('assignment'=>$assignment));
-					}?>
-				</tbody>
-			</table>
-		</td>
-	</tr>
+	<?php if (OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->find('element_id=?',array($element->id))) {?>
+		<tr>
+			<td colspan="4">
+				<table class="medications">
+					<thead>
+						<tr>
+							<th>Medication</th>
+							<th>Site</th>
+							<th>Amount</th>
+							<th>Time</th>
+							<th>Given by</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach (OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment::model()->findAll('element_id=?',array($element->id)) as $assignment) {
+							echo $this->renderPartial('_medication_view',array('assignment'=>$assignment));
+						}?>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	<?php }?>
 	<tr>
 		<td><?php echo $element->getAttributeLabel('weight_kg_physician')?></td>
 		<td><?php echo $element->weight_kg_physician ? '✔' : '✘'?></td>
