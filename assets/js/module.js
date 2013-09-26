@@ -71,6 +71,13 @@ $(document).ready(function() {
 		e.preventDefault();
 		$(this).parent().parent().remove();
 	});
+
+	$('input[type="text"]').die('keypress').live('keypress',function(e) {
+		if (e.keyCode == 13) {
+			return false;
+		}
+		return true;
+	});
 });
 
 // Checks that everything is ready and sets image accordingly
