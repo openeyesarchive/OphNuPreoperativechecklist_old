@@ -67,6 +67,7 @@ class OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment extends BaseActive
 		return array(
 			array('element_id, drop_id, side_id, dose, time, given_by_id, display_order', 'safe'),
 			array('drop_id, side_id, dose, time, given_by_id, display_order', 'required'),
+			array('time', 'date', 'format' => 'HH:mm'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, element_id, drop_id, side_id, dose, time, given_by_id, display_order', 'safe', 'on' => 'search'),
