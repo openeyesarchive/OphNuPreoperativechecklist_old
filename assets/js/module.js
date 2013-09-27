@@ -55,7 +55,7 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 
-	$('a.addMedication').click(function(e) {
+	$('button.addMedication').click(function(e) {
 		e.preventDefault();
 
 		$.ajax({
