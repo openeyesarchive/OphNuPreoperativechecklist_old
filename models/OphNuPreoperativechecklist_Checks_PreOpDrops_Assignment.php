@@ -102,7 +102,7 @@ class OphNuPreoperativechecklist_Checks_PreOpDrops_Assignment extends BaseActive
 			'id' => 'ID',
 			'drop_id' => 'Medication',
 			'side_id' => 'Site',
-			'dose' => 'Dose',
+			'dose' => 'Amount',
 			'Time' => 'Time',
 			'given_by_id' => 'Given by',
 		);
