@@ -23,6 +23,6 @@
 	<td><?php echo CHtml::dropDownList('Site[]',$assignment->side_id,CHtml::listData(Eye::model()->findAll(array('order'=>'display_order')),'id','name'),array('empty'=>'- Please select -'))?></td>
 	<td><?php echo CHtml::textField('Amount[]',$assignment->dose,array('size'=>15))?></td>
 	<td><?php echo CHtml::textField('Time[]',$assignment->time,array('size'=>6))?></td>
-	<td><?php echo CHtml::dropDownList('Givenby[]',$assignment->given_by_id,CHtml::listData(User::model()->findAll(array('order'=>'first_name,last_name')),'id','fullName'),array('empty'=>'- Please select -'))?></td>
+	<td><?php echo CHtml::dropDownList('Givenby[]',$assignment->given_by_id,CHtml::listData(User::model()->findAllByLabel('Ophthalmic Nurse'),'id','fullName'),array('empty'=>'- Please select -'))?></td>
 	<td><a class="removeMedication" href="#">remove</a><input type="hidden" name="AssignmentID[]" value="<?php echo $assignment->id?>" /></td>
 </tr>
