@@ -55,4 +55,13 @@ class DefaultController extends BaseEventTypeController {
 
 		return $medications;
 	}
+
+	public function getFirmUsers()
+	{
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('firm.id is not null');
+		$criteria->order = 'first_name asc, last_name asc';
+
+		return User::model()->with('firm')->findAll($criteria);
+	}
 }

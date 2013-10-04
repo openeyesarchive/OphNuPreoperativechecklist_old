@@ -58,7 +58,7 @@
 			<td style="padding-left: 20px;"><?php echo $element->getAttributeLabel('name_of_attendant_physician')?></td>
 			<td><?php echo $form->checkBox($element,'name_of_attendant_physician',array('nowrapper'=>true))?></td>
 			<td><?php echo $form->checkBox($element,'name_of_attendant_nurse',array('nowrapper'=>true))?></td>
-			<td><?php echo $form->dropDownList($element,'attendant_id',CHtml::listData(User::model()->findAll(array('order'=>'first_name,last_name')),'id','fullName'),array('nowrapper'=>true,'empty'=>'- Please select -'))?></td>
+			<td><?php echo $form->dropDownList($element,'attendant_id',CHtml::listData($this->getFirmUsers(),'id','fullName'),array('nowrapper'=>true,'empty'=>'- Please select -'))?></td>
 		</tr>
 		<tr><td>3. CONSENT</td></tr>
 		<tr>
