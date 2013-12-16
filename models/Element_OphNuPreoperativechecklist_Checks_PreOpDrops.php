@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class Element_OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRecord
+class Element_OphNuPreoperativechecklist_Checks_PreOpDrops extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
