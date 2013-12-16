@@ -81,9 +81,7 @@ CREATE TABLE `et_ophnupreoperative_checks_pre_op_drops_version` (
 	public function down()
 	{
 		$this->dropColumn('et_ophnupreoperative_checks','deleted');
-		$this->dropColumn('et_ophnupreoperative_checks_version','deleted');
 		$this->dropColumn('et_ophnupreoperative_checks_pre_op_drops','deleted');
-		$this->dropColumn('et_ophnupreoperative_checks_pre_op_drops_version','deleted');
 
 		$this->dropTable('et_ophnupreoperative_checks_version');
 		$this->dropTable('et_ophnupreoperative_checks_pre_op_drops_version');
