@@ -12,10 +12,10 @@ CREATE TABLE `et_ophnupreoperative_checks_version` (
 	`name_band_present` tinyint(1) unsigned NOT NULL,
 	`eye_marked` tinyint(1) unsigned NOT NULL,
 	`verbal_confirmation` tinyint(1) unsigned NOT NULL,
-	`last_time_npo` varchar(100) COLLATE utf8_bin DEFAULT '',
-	`iol` varchar(20) COLLATE utf8_bin DEFAULT '',
+	`last_time_npo` varchar(100) DEFAULT '',
+	`iol` varchar(20) DEFAULT '',
 	`refractive_outcome` decimal(4,2) NOT NULL,
-	`pre_op_drops` text COLLATE utf8_bin NOT NULL,
+	`pre_op_drops` text NOT NULL,
 	`proceed` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -28,7 +28,7 @@ CREATE TABLE `et_ophnupreoperative_checks_version` (
 	CONSTRAINT `acv_et_ophnupreoperative_checks_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophnupreoperative_checks_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophnupreoperative_checks_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophnupreoperative_checks_version','id','int(10) unsigned NOT NULL');
@@ -46,7 +46,7 @@ CREATE TABLE `et_ophnupreoperative_checks_version` (
 		$this->execute("
 CREATE TABLE `et_ophnupreoperative_checks_pre_op_drops_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(128) COLLATE utf8_bin NOT NULL,
+	`name` varchar(128) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -57,7 +57,7 @@ CREATE TABLE `et_ophnupreoperative_checks_pre_op_drops_version` (
 	KEY `acv_et_ophnupreoperative_checks_pre_op_drops_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_et_ophnupreoperative_checks_pre_op_drops_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophnupreoperative_checks_pre_op_drops_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophnupreoperative_checks_pre_op_drops_version','id','int(10) unsigned NOT NULL');
