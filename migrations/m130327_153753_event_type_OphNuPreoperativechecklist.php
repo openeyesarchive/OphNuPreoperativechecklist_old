@@ -25,7 +25,7 @@ class m130327_153753_event_type_OphNuPreoperativechecklist extends CDbMigration
 		// element lookup table et_ophnupreoperative_checks_pre_op_drops
 		$this->createTable('et_ophnupreoperative_checks_pre_op_drops', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'name' => 'varchar(128) COLLATE utf8_bin NOT NULL',
+				'name' => 'varchar(128) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -36,7 +36,7 @@ class m130327_153753_event_type_OphNuPreoperativechecklist extends CDbMigration
 				'KEY `et_ophnupreoperative_checks_pre_op_drops_cui_fk` (`created_user_id`)',
 				'CONSTRAINT `et_ophnupreoperative_checks_pre_op_drops_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophnupreoperative_checks_pre_op_drops_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->insert('et_ophnupreoperative_checks_pre_op_drops',array('name'=>'G. Tropicamide 1% stat','display_order'=>1));
 		$this->insert('et_ophnupreoperative_checks_pre_op_drops',array('name'=>'G. Cyclopentolate 1% stat','display_order'=>2));
@@ -68,7 +68,7 @@ class m130327_153753_event_type_OphNuPreoperativechecklist extends CDbMigration
 				'CONSTRAINT `et_ophnupreoperative_checks_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophnupreoperative_checks_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophnupreoperative_checks_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 	}
 
