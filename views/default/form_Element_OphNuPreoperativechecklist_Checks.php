@@ -32,7 +32,7 @@
 	<?php echo $form->textField($element, 'last_time_npo', array('size' => '10','maxlength' => '100'))?>
 	<?php echo $form->textField($element, 'iol', array('size' => '10','maxlength' => '20'))?>
 	<?php echo $form->textField($element, 'refractive_outcome', array('size' => '10','maxlength' => '6'))?>
-	<?php echo $form->dropDownListNoPost('pre_op_drops', CHtml::listData(Element_OphNuPreoperativechecklist_Checks_PreOpDrops::model()->findAll(),'id','name'),'',array('empty'=>'- Pre op drops -','class'=>'populate_textarea'))?>
+	<?php echo $form->dropDownListNoPost('pre_op_drops', CHtml::listData(Element_OphNuPreoperativechecklist_Checks_PreOpDrops::model()->notDeleted()->findAll(),'id','name'),'',array('empty'=>'- Pre op drops -','class'=>'populate_textarea'))?>
 	<?php echo $form->textArea($element, 'pre_op_drops', array('rows' => 2, 'cols' => 80))?>
 <!-- 	<?php echo $form->radioBoolean($element, 'proceed')?> -->
 	<?php echo $form->hiddenInput($element, 'proceed', $element->proceed)?>
